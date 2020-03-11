@@ -1,0 +1,6 @@
+cli/
+dist/
+jakelib/templates*
+lib/
+vendor/
+index.ejs

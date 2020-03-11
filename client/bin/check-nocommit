@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const { createStagedComand, checkStaged } = require('./check-common.js');
+
+
+const ALLOWED_EXTENSIONS = ['js', 'es6', 'vue', 'jsx'];
+const NOCOMMIT_EXPRESSIONS = ['//husky__nocommit!'];
+
+const stagedComand = createStagedComand({ extensions: ALLOWED_EXTENSIONS });
+
+
+/** * @param {string} line */
+const isNocommit = (line, expression) => {
+  const trimmed = line.trim();
+  return trimmed === expression
+    || (!trimmed.startsWith('//') && trimmed.endsWith(expression));
+};
+
+/** @param {string} fileName */
+const checkFile = fileName => {
+  fs.readFileSync(fileName, 'utf-8').split('\n').forEach((line, lineIndex) => {
+    NOCOMMIT_EXPRESSIONS.forEach((expression) => {
+      if (isNocommit(line, expression)) {
+        throw new Error(`Encountered "${NOCOMMIT_EXPRESSION}" at "${fileName}:${lineIndex + 1}".\n
+      You may either delete it, comment it out or use \`git commit --force\`.`);
+      }
+    });
+  });
+};
+
+
+checkStaged({
+  checkFile,
+  stagedComand,
+  type: 'nocommit',
+});

@@ -1,0 +1,26 @@
+/*
+  Main scss file, please add only imports here.
+  All scss declarations should be declared in their specific folder and imported
+  in _index.scss belonging to that folder.
+
+  Index imports are in this specific order for a reason, please don't change that.
+
+  Variables should be imported first, so that project's variables would override bootstrap's variables.
+  Vendors come with 3rd party variables, which you may want to manipulate in sass functions inside helpers/.
+  Base contains global styles, such as, typography, grid, font-face definitions etc.
+  Inside helpers/, one can generate global utility classes which can be then extended in other classes below.
+  Utils can extend all the classes above.
+  Layout / components usually use utilities and variables, and are the bottom leafs of the scss dependency tree.
+  Layout is first, because is more general than components.
+
+  Finally, _shame.scss, which should be used as occasionally as possible.
+*/
+
+@import 'style/variables';
+@import 'style/vendors/index';
+@import 'style/base/index';
+@import 'style/helpers/index';
+@import 'style/utils/index';
+@import 'style/layout/index';
+@import 'style/components/index';
+@import 'style/shame';

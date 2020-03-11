@@ -1,0 +1,15 @@
+/*
+  This file, dramatically titled _shame.scss, consists of all the CSS declarations, hacks and things we are not proud of.
+  It would be imported after any other file, at the very end of the stylesheet.
+
+  Leave here any classes that are a temporary fix or those for is enough time to refactor,
+  with a comment to let others know why you did that.
+*/
+
+html,
+body,
+#app-container,
+main {
+  height: 100%;
+  overflow: hidden;
+}

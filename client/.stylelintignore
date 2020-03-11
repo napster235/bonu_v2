@@ -1,0 +1,7 @@
+cli/
+dist/
+jakelib/
+node_modules/
+vendor/
+!*.css
+!*.scss

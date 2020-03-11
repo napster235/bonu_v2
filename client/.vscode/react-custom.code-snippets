@@ -1,0 +1,63 @@
+{
+	"Create a React component": {
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"prefix": "rcomp",
+		"description": "A React component",
+		"body": [
+			"import React, { Component } from 'react';",
+			"\nexport default class ${1:$TM_FILENAME_BASE} extends Component {",
+			"\trender() {",
+			"\t\treturn (",
+			"\t\t\t$0",
+			"\t\t);",
+			"\t}",
+			"}"
+		]
+	},
+	"Create a Redux container": {
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+		"prefix": "rcont",
+		"description": "A Redux container",
+		"body": [
+			"import { connect } from 'react-redux';",
+			"import { bindActionCreators } from 'redux';",
+			"\nimport ${1:${TM_FILENAME_BASE/Container$//}} from 'components/${1:${TM_FILENAME_BASE/Container$//}}';",
+			"\nfunction mapStateToProps(state) {",
+			"\treturn {",
+			"\t\tapp: state.app,",
+			"\t};",
+			"}",
+			"\nfunction mapDispatchToProps(dispatch) {",
+			"\treturn {",
+			"\t\tactions: bindActionCreators({",
+			"\t\t\t$2",
+			"\t\t}, dispatch),",
+			"\t};",
+			"}",
+			"\nexport default connect(",
+			"\tmapStateToProps,",
+			"\tmapDispatchToProps,",
+			")(${1:${TM_FILENAME_BASE/Container$//}});",
+		]
+	},
+	"Jest enzyme test boilderplate": {
+		"scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "jesttest-enzyme",
+    "body": [
+      "import React from 'react';",
+      "import { shallow } from 'enzyme';",
+      "import ${1:${TM_FILENAME_BASE/(.*)?\\..+$/$1/}} from '../${1:${TM_FILENAME_BASE/(.*)?\\..+$/$1/}}';",
+      "",
+      "describe('${1:${TM_FILENAME_BASE/(.*)?\\..+$/$1/}}', () => {",
+      "  let wrapper;",
+      "",
+      "  beforeEach(() => {",
+      "    jest.clearAllMocks();",
+      "    wrapper = shallow(<${1:${TM_FILENAME_BASE/(.*)?\\..+$/$1/}} $2/>);",
+      "  });",
+      "  it('Should render correctly', () => {});",
+      "});",
+    ],
+    "description": "Jest test"
+  },
+}

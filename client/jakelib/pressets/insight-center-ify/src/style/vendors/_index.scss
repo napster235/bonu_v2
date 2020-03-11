@@ -1,0 +1,18 @@
+/*
+  Vendors contains css for react-select, or other css for external components.
+  Also here one can import ionicons, bootstrap and all other vendors.
+
+  Putting those aside in the same folder is a good way to say
+  “Hey, this is not from me, not my code, not my responsibility”.
+*/
+// Insight Center Fonts
+$custom-theme-font-path: "~insight-center-theme/fonts/" !default;
+
+// Ion Icons Awesome
+$ionicons-font-path: "~ionicons/fonts/";
+@import "~ionicons/scss/ionicons";
+
+// Bootstrap
+@import "~insight-center-theme/scss/ic-before.scss";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~insight-center-theme/scss/ic-after.scss";

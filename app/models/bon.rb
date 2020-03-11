@@ -1,0 +1,2 @@
+class Bon < ApplicationRecord
+end

@@ -1,0 +1,12 @@
+/*
+  The layout/ folder contains everything that takes part in laying out the site or application.
+  This folder could have stylesheets for the main parts of the site (header, footer, main, grid),
+  or even CSS styles for all the forms, all the buttons, all the modals.
+*/
+
+@import 'style/layout/buttons';
+@import 'style/layout/footer';
+@import 'style/layout/forms';
+@import 'style/layout/grid';
+@import 'style/layout/header';
+@import 'style/layout/nav';

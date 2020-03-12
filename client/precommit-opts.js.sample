@@ -1,0 +1,16 @@
+/*
+ * Precommit config file
+ * Options for configuring husky precommit hooks
+
+ * How to use:
+ * 1. Create a file named precommit-opts.js
+ * 2. Export an object containing all the options with values
+
+ * Possible options:
+ * @param {bool} skipPrecommit - specifies if husky will call precommit hook(disabling will result in a warning)
+
+*/
+
+module.exports = {
+  skipPrecommit: true,
+};

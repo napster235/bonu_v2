@@ -1,0 +1,13 @@
+{
+  "default_file": "INSERT_FIGMA_FILE_ID",
+  "assets_root_folder": "./src/assets/",
+  "components": {
+    "COMPONENT_NAME": {
+      "node_id": "FIGMA_COMPONENT_NODE_ID_FROM",
+      "relative_path": "RELATIVE_PATH (optional)",
+      "export_settings": {
+        "format": "png_jpg_svg (optional)"
+      }
+    }
+  }
+}

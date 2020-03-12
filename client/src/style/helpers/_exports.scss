@@ -1,0 +1,10 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+/* stylelint-disable property-no-unknown */
+:export {
+  @each $color, $value in $colors {
+    #{$color}: #{$value};
+  }
+  @each $color, $value in $theme-colors {
+    #{$color}: #{$value};
+  }
+}

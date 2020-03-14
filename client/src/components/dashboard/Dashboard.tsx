@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
 
 
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import {
   Tag, Calendar, Info, Edit, Trash,
@@ -35,7 +35,7 @@ const formatDate = (date) => {
 const defaultTextColor =  '#3d4977';
 const gridContainerPadding = 200;
 
-const useStyles = makeStyles((theme: Theme) =>   createStyles({
+const useStyles = makeStyles(() =>   createStyles({
   textColor: {
     color: defaultTextColor,
   },

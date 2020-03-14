@@ -41,7 +41,7 @@ const SwipeableDrawer: React.FC = () => {
   const classes = useStyles();
 
   const routes = [
-    { text: 'Dashboard', icon: <Archive color="#b2c5fb" />, linkTo: 'dashboard' },
+    { text: 'Lista bonuri', icon: <Archive color="#b2c5fb" />, linkTo: 'dashboard' },
   ];
 
   return (

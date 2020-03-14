@@ -1,0 +1,11 @@
+@for $i from 1 through 10 {
+  $size: percentage($i*10/100);
+
+  .w-#{$i * 10} {
+    width: $size !important;
+  }
+
+  .h-#{$i * 10} {
+    height: $size !important;
+  }
+}

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post "/graphql", to: "graphql#execute"
   post 'register', to: 'api/v1/users#register'
   post 'auth/login', to: 'api/v1/users#login'
   get 'test', to: 'api/v1/users#test'

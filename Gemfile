@@ -13,6 +13,13 @@ gem 'bcrypt'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'jwt'
 gem 'simple_command'
+
+gem 'graphql'
+gem 'graphql-query-resolver'
+gem 'search_object'
+gem 'search_object_graphql'
+
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -25,6 +32,7 @@ gem 'simple_command'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'pry'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'

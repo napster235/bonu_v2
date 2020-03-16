@@ -5,6 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
+
+user = User.create('email': Faker::Internet.email, name: Faker::Name.name, password: '1232432432' )
+
 
 lista_bonuri = [
     ["01-02-2018", 203, "Bon Lidl"],
@@ -24,5 +28,5 @@ lista_bonuri = [
 ]
 
 lista_bonuri.each do |purchase_date, amount, notes|
-  Bon.create(purchase_date: purchase_date, amount: amount, notes: notes)
+  Bon.create(purchase_date: purchase_date, amount: amount, notes: notes, user_id: user.id)
 end

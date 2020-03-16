@@ -18,10 +18,10 @@ class Api::V1::BonsController < ApplicationController
     @new_bon = Bon.create(bon_params)
   end
 
-  def edit
+  def edit  
     @bon = Bon.find_by_id(params[:id])
     if @bon.nil?
-      redirect_to root
+      render :index
     else
       render :edit
     end
@@ -30,7 +30,7 @@ class Api::V1::BonsController < ApplicationController
   def update
     @bon = Bon.find_by_id(params[:id])
     if @bon.nil? || @bon.update(bon_params)
-      redirect_to root_path
+      render :index
     else
       render :edit
     end
@@ -39,10 +39,10 @@ class Api::V1::BonsController < ApplicationController
   def destroy
     @bon = Bon.find_by_id(params[:id])
     if @bon.nil?
-      redirect_to root_path
+      render :index
     else
       @bon.destroy
-      redirect_to root_path
+      render json: Bon.all
     end
   end
 

@@ -41,7 +41,7 @@ const SwipeableDrawer: React.FC = () => {
   const classes = useStyles();
 
   const routes = [
-    { text: 'Lista bonuri', icon: <Archive color="#b2c5fb" />, linkTo: 'dashboard' },
+    { text: 'Listă bonuri', icon: <Archive color="#b2c5fb" />, linkTo: 'dashboard' },
   ];
 
   return (
@@ -58,7 +58,7 @@ const SwipeableDrawer: React.FC = () => {
         role="presentation"
       >
         <Box component="h4" my={2} className={`${classes.textColor} content-center`}>
-             Bonu
+          {'Bonu\''}
         </Box>
         <Divider className={classes.divider} />
 

@@ -120,7 +120,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="container mt-5 w-100 h-100">
       <Box component="h4" my={3} className={`${classes.textColor} content-center`}>
-        Lista bonuri
+        Listă bonuri
       </Box>
       <Grid container spacing={1} className={classes.grid}>
         {ensureArray(data).map(d => {
@@ -133,13 +133,13 @@ const Dashboard: React.FC = () => {
                     <CardContent>
                       <CardContentItem
                         classes={classes}
-                        label="Suma"
+                        label="Sumă"
                         value={`${d.amount} RON`}
                         icon={() => <Tag size={16} color={defaultTextColor} className="mr-2" />}
                       />
                       <CardContentItem
                         classes={classes}
-                        label="Data"
+                        label="Dată"
                         value={date}
                         icon={() => <Calendar size={16} color={defaultTextColor} className="mr-2" />}
                       />
@@ -148,7 +148,7 @@ const Dashboard: React.FC = () => {
                         ? (
                           <CardContentItem
                             classes={classes}
-                            label="Note"
+                            label="Descriere"
                             value={d.notes}
                             icon={() => <Info size={16} color={defaultTextColor} className="mr-2" />}
                           />
@@ -156,13 +156,13 @@ const Dashboard: React.FC = () => {
                     </CardContent>
                   </div>
                   <div className={classes.cardControllers}>
-                    <Tooltip title="Editare" placement="right-end">
+                    <Tooltip title="Modifică" placement="right-end">
                       <Button variant="contained" className={`h-50 content-center m-0 p-0 ${classes.button}`}>
                         <Edit size={16} color={defaultTextColor}  />
                       </Button>
                     </Tooltip>
 
-                    <Tooltip title="Sterge" placement="right-end">
+                    <Tooltip title="Șterge" placement="right-end">
                       <Button variant="contained" className={`h-50 content-center m-0 p-0 ${classes.button}`} onClick={() => deleteItem(d)}>
                         <Trash size={16} color={defaultTextColor}  />
                       </Button>

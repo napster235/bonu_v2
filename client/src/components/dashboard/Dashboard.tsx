@@ -24,11 +24,7 @@ const QueryContent = ({
   data, loading, error,
 }) => {
   if (!data) {
-    return (
-      <div>
-        Nu exista bonuri adaugate. Incearca sa adaugi unul
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   const { bons } = data;
@@ -48,7 +44,7 @@ const QueryContent = ({
   );
 };
 
-const BonsContainer = ({ first = 10, skip = 0, orderBy = 1 }) => {
+const BonsContainer = ({ first = 10, skip = 0, orderBy = 'createdAt_DESC' }) => {
   return (
     <Query
       query={GET_PAGINATED_BONS}

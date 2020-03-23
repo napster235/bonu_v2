@@ -1,181 +1,113 @@
 /* eslint-disable no-console */
-import React, { useState, useEffect } from 'react';
-import { fetchData, deleteBon } from 'api/bonuri';
-import { ensureArray } from 'utils/list';
+import React, { Fragment } from 'react';
 import LoadingSpinner from 'lib/components/LoadingSpinner';
-import { isEmpty } from 'ramda';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-
 import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
-
-
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import {
-  Tag, Calendar, Info, Edit, Trash,
-} from 'react-feather';
+import SortBy from 'lib/components/SortBy.tsx';
 
-const formatDate = (date) => {
-  let dd = date.getDate();
-  let mm = date.getMonth() + 1;
+import { Query } from 'react-apollo';
 
-  const yyyy = date.getFullYear();
-  if (dd < 10) {
-    dd = `0${dd}`;
-  }
-  if (mm < 10) {
-    mm = `0${mm}`;
-  }
-  return `${dd}/${mm}/${yyyy}`;
-};
+import { GET_PAGINATED_BONS } from './queries.tsx';
+import DashboardCard from './DashboardCard';
 
 const defaultTextColor =  '#3d4977';
-const gridContainerPadding = 200;
 
-const useStyles = makeStyles(() =>   createStyles({
+const useStyles = makeStyles({
   textColor: {
     color: defaultTextColor,
   },
-  text: {
-    color: defaultTextColor,
-    fontSize: '1rem',
-  },
-  root: {
-    minWidth: 275,
-    margin: '0 4rem',
-  },
-  title: {
-    fontSize: 14,
-  },
-  fieldValue: {
-    fontWeight: 'bold',
-    color: defaultTextColor,
-    fontSize: '1rem',
-    marginLeft: '0.5rem',
-    width: '100%',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  grid: {
-    maxHeight: `calc(100% - ${gridContainerPadding}px)`,
-    height: `calc(100% - ${gridContainerPadding}px)`,
+  container: {
+    maxHeight: '70vh',
     overflowY: 'auto',
   },
-  cardControllers: {
-    width: '10% !important',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  button: {
-    minWidth: '100%',
-    backgroundColor: '#b2c5fb',
-  },
-}));
+});
 
 
-const CardContentItem = ({
-  classes, label, value, icon,
+const QueryContent = ({
+  data, loading, error,
 }) => {
-  return (
-    <div className="d-flex align-items-center">
-      { icon() }
-      <div className={classes.text}>
-        {`${label}: `}
-      </div>
-      <Tooltip title={`${label}: ${value}`} placement="left-start">
-        <div className={classes.fieldValue}>
-          {value}
-        </div>
-      </Tooltip>
-    </div>
-  );
-};
-
-const Dashboard: React.FC = () => {
-  const [data, setData] = useState([]);
+  if (!data) {
+    return <LoadingSpinner />;
+  }
   const classes = useStyles();
 
-  useEffect(() => {
-    fetchData()
-      .then(({ body }) => setData(body))
-      .catch((err) => console.log('Fetch Error :-S', err));
-  }, []);
+  const { bons } = data;
 
-
-  const deleteItem = (d) => {
-    deleteBon(d)
-      .then(({ body }) => setData(body))
-      .catch((err) => console.log('Fetch Error :-S', err));
-  };
-
-  if (isEmpty(data)) {
+  if (loading || !bons.length) {
     return <LoadingSpinner />;
   }
 
+  if (error) {
+    console.log(error);
+  }
 
   return (
-    <div className="container mt-5 w-100 h-100">
-      <Box component="h4" my={3} className={`${classes.textColor} content-center`}>
-        Listă bonuri
-      </Box>
-      <Grid container spacing={1} className={classes.grid}>
-        {ensureArray(data).map(d => {
-          const date = formatDate(new Date(d.purchase_date));
-          return (
-            <Grid item xs={6} key={`${d.id}`}>
-              <Card className={classes.root}>
-                <div className="d-flex w-100">
-                  <div className="w-90">
-                    <CardContent>
-                      <CardContentItem
-                        classes={classes}
-                        label="Sumă"
-                        value={`${d.amount} RON`}
-                        icon={() => <Tag size={16} color={defaultTextColor} className="mr-2" />}
-                      />
-                      <CardContentItem
-                        classes={classes}
-                        label="Dată"
-                        value={date}
-                        icon={() => <Calendar size={16} color={defaultTextColor} className="mr-2" />}
-                      />
+    <Grid container spacing={1} className={`${classes.container}`}>
+      {bons.map((bon: { id: any; purchaseDate?: string | undefined; notes?: string | undefined; amount?: number | undefined; }) => <DashboardCard key={bon.id} data={bon} />)}
+    </Grid>
+  );
+};
 
-                      {d.notes
-                        ? (
-                          <CardContentItem
-                            classes={classes}
-                            label="Descriere"
-                            value={d.notes}
-                            icon={() => <Info size={16} color={defaultTextColor} className="mr-2" />}
-                          />
-                        ) : null}
-                    </CardContent>
-                  </div>
-                  <div className={classes.cardControllers}>
-                    <Tooltip title="Modifică" placement="right-end">
-                      <Button variant="contained" className={`h-50 content-center m-0 p-0 ${classes.button}`}>
-                        <Edit size={16} color={defaultTextColor}  />
-                      </Button>
-                    </Tooltip>
+const BonsContainer = ({ first, skip, orderBy = 'createdAt_ASC' }) => {
+  const sortByOptions = [
+    {
+      id: 'createdAt_DESC',
+      name: 'Descrescator',
+    },
+    {
+      id: 'createdAt_ASC',
+      name: 'Crescator',
+    },
+  ];
+  return (
+    <Query
+      query={GET_PAGINATED_BONS}
+      variables={{ first, skip, orderBy }}
+    >
 
-                    <Tooltip title="Șterge" placement="right-end">
-                      <Button variant="contained" className={`h-50 content-center m-0 p-0 ${classes.button}`} onClick={() => deleteItem(d)}>
-                        <Trash size={16} color={defaultTextColor}  />
-                      </Button>
-                    </Tooltip>
+      {({
+        data,
+        loading,
+        error,
+        fetchMore,
+      }) => (
+        <Fragment>
+          <Box mx={8} mb={5}>
+            <SortBy
+              options={sortByOptions}
+              defaultValue={orderBy}
+              handleSelect={(value: any) => fetchMore({
+                variables: { orderBy: value },
+                updateQuery: (prev: any, { fetchMoreResult }: any) => {
+                  if (!fetchMoreResult) return prev;
+                  return Object.assign({}, prev, {
+                    bons: [...fetchMoreResult.bons],
+                  });
+                },
+              })}
+            />
+          </Box>
+          <QueryContent data={data} error={error} loading={loading} />
+        </Fragment>
+      )}
+    </Query>
+  );
+};
 
-                  </div>
-                </div>
 
-              </Card>
-            </Grid>
-          );
-        })}
-      </Grid>
+const Dashboard = () => {
+  const classes = useStyles();
+
+
+  return (
+    <div className="container mt-5">
+      <div className="w-100 d-flex flex-column">
+        <Box component="h4" my={3} className={`${classes.textColor} content-center`}>
+          Lista bonuri
+        </Box>
+      </div>
+      <BonsContainer />
     </div>
   );
 };

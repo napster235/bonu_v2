@@ -21,5 +21,4 @@ class Types::QueryType < Types::BaseObject
     User.all
   end
 
-
 end

@@ -49,6 +49,6 @@ class Api::V1::BonsController < ApplicationController
   private
 
   def bon_params
-    params.require(:bon).permit(:purchase_date, :amount, :notes)
+    params.require(:bon).permit(:purchase_date, :amount, :notes, :user_id)
   end
 end

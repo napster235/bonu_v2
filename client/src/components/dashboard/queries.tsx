@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const GET_PAGINATED_BONS = gql`
-query($first: Int!, $orderBy: BonOrderBy) {
+query($first: Int, $orderBy: BonOrderBy) {
     bons(first: $first, orderBy: $orderBy)
       @connection(key: "MessagesConnection") {
       id

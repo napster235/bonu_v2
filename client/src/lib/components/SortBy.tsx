@@ -52,7 +52,7 @@ const SortBy: React.FC<SortByProps> = ({ options, handleSelect, defaultValue }) 
   return (
     <div className="d-flex align-items-center">
       <div className={`${classes.text} mr-2`}>
-        Sorteaza dupa data
+        Sortează după dată
       </div>
       <FormControl>
         <Select

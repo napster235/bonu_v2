@@ -30,7 +30,9 @@ const ActionButton:React.FC<ActionButtonProps> = ({
   return (
     <Mutation
       mutation={actionQuery}
-      variables={{ id }}
+      variables={{
+        id,
+      }}
       update={cache => {
         const data = cache.readQuery({
           query: GET_PAGINATED_BONS,

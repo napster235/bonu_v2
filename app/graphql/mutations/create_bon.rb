@@ -7,17 +7,18 @@ module Mutations
     argument :amount, Integer, required: true
     argument :userId, ID, required: true
 
+    field :bon, BonType, null: false
+
     # return type from the mutation
-    type BonType
 
     def resolve(purchase_date: nil, notes: nil, amount: nil, user_id: nil)
-      bon = Bon.create!(
+     bon = Bon.create!(
         notes: notes,
         amount: amount,
-        user_id: 1,
+        user_id: user_id,
         purchase_date: purchase_date
       )
-      { bon }
+     { bon: bon }
     end
   end
 end

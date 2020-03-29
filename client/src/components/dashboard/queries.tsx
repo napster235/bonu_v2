@@ -20,28 +20,15 @@ export const DELETE_BON = gql`
 `;
 
 
-// export const CREATE_BON = gql`
-//   mutation($text: String!) {
-//     createBon(text: $text) {
-//       id
-//       amount
-//       purchaseDate
-//       notes
-//     }
-//   }
-// `;
-
-
 export const CREATE_BON = gql`
-  mutation {
-    createBon(input: {
-        purchaseDate: "2020-02-02",
-        amount: 123,
-        notes: "bla bla",
-        userId: 1
+  mutation($purchaseDate: String!, $amount: Int!, $notes: String!, $userId: ID!,) {
+    createBon(input: { purchaseDate: $purchaseDate, amount: $amount, notes: $notes, userId: $userId } ) {
+      bon {
+        purchaseDate
+        amount
+        notes
+        userId
       }
-    ) {
-      bon
     }
   }
 `;

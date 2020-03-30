@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
-import Card from '@material-ui/core/Card';
+import MuiCard from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -74,16 +74,17 @@ const CardContentItem = ({
 };
 
 
-interface DashboardCardProps {
+interface CardProps {
   data: {
     purchaseDate?: string,
     notes?: string,
     amount?: number,
     id: number,
-  }
+  },
+  refetch: any | undefined
 }
 
-const DashboardCard:React.FC<DashboardCardProps> = ({ data }) => {
+const Card:React.FC<CardProps> = ({ data, refetch }) => {
   const {
     purchaseDate = '', notes = '', amount = 0, id,
   } = data;
@@ -91,7 +92,7 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data }) => {
 
   return (
     <Grid item xs={6} key={`${id}`}>
-      <Card className={classes.root}>
+      <MuiCard className={classes.root}>
         <div className="d-flex w-100">
           <div className="w-90">
             <CardContent>
@@ -123,21 +124,23 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data }) => {
             <ActionButton
               tooltipText="Editare"
               icon={() => <Edit size={16} color={defaultTextColor}  />}
-              id={id}
+              variables={{ id }}
               actionQuery={CREATE_BON}
+              refetch={refetch}
             />
             <ActionButton
               tooltipText="Ștergere"
               icon={() => <Trash size={16} color={defaultTextColor}  />}
-              id={id}
+              variables={{ id }}
               actionQuery={DELETE_BON}
+              refetch={refetch}
             />
           </div>
         </div>
 
-      </Card>
+      </MuiCard>
     </Grid>
   );
 };
 
-export default DashboardCard;
+export default Card;

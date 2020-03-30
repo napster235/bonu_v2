@@ -10,16 +10,11 @@ const useStyles = makeStyles({
   textColor: {
     color: defaultTextColor,
   },
-  container: {
-    maxHeight: '70vh',
-    overflowY: 'auto',
-  },
 });
 
 
 const Dashboard = () => {
   const classes = useStyles();
-
 
   return (
     <div className="container mt-5">

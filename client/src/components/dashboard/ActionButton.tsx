@@ -15,24 +15,23 @@ const useStyles =  makeStyles(() =>   createStyles({
 }));
 
 interface ActionButtonProps {
-  id: number,
+  variables: any,
   actionQuery: any,
   icon: any,
   tooltipText: string,
   tooltipPosition: string | undefined,
+  refetch: any | undefined,
 }
 
 const ActionButton:React.FC<ActionButtonProps> = ({
-  id, actionQuery, icon, tooltipText = 'Sterge', tooltipPosition = 'right-end',
+  variables, actionQuery, icon, tooltipText = 'Sterge', tooltipPosition = 'right-end', refetch,
 }) => {
   const classes = useStyles();
 
   return (
     <Mutation
       mutation={actionQuery}
-      variables={{
-        id,
-      }}
+      variables={{ ...variables }}
       update={cache => {
         const data = cache.readQuery({
           query: GET_PAGINATED_BONS,
@@ -47,6 +46,7 @@ const ActionButton:React.FC<ActionButtonProps> = ({
             },
           },
         });
+        return refetch();
       }}
     >
       {(action) => {

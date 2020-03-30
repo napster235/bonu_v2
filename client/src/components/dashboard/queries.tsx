@@ -15,7 +15,14 @@ query($first: Int, $orderBy: BonOrderBy) {
 
 export const DELETE_BON = gql`
   mutation($id: ID!) {
-    deleteBon(id: $id)
+    deleteBon(input: { id: $id }) {
+      bon {
+        id
+        purchaseDate
+        notes
+        amount
+      }
+    }
   }
 `;
 

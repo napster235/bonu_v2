@@ -21,4 +21,11 @@ class Types::QueryType < Types::BaseObject
     User.all
   end
 
+  field :bon, BonType, null: false do
+    argument :id, Int, required: false
+  end
+
+  def bon(id:)
+    Bon.find(id)
+  end
 end

@@ -1,4 +1,3 @@
-
 module Mutations
   class CreateBon < BaseMutation
     # arguments passed to the `resolve` method

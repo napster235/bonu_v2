@@ -1,12 +1,8 @@
 module Types
   class MutationType < Types::BaseObject
+    field :delete_bon, mutation: Mutations::DeleteBon
+    field :update_bon, mutation: Mutations::UpdateBon
 
     field :create_bon, mutation: Mutations::CreateBon
-
-    field :test_field, String, null: false,
-      description: "An example field added by the generator"
-    def test_field
-      "Hello World"
-    end
   end
 end

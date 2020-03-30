@@ -97,13 +97,13 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data }) => {
             <CardContent>
               <CardContentItem
                 classes={classes}
-                label="Suma"
+                label="Sumă"
                 value={`${amount} RON`}
                 icon={() => <Tag size={16} color={defaultTextColor} className="mr-2" />}
               />
               <CardContentItem
                 classes={classes}
-                label="Data"
+                label="Dată"
                 value={purchaseDate}
                 icon={() => <Calendar size={16} color={defaultTextColor} className="mr-2" />}
               />
@@ -112,7 +112,7 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data }) => {
                 ? (
                   <CardContentItem
                     classes={classes}
-                    label="Note"
+                    label="Descriere"
                     value={notes}
                     icon={() => <Info size={16} color={defaultTextColor} className="mr-2" />}
                   />
@@ -127,7 +127,7 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data }) => {
               actionQuery={CREATE_BON}
             />
             <ActionButton
-              tooltipText="Stergere"
+              tooltipText="Ștergere"
               icon={() => <Trash size={16} color={defaultTextColor}  />}
               id={id}
               actionQuery={DELETE_BON}

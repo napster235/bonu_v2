@@ -9,12 +9,16 @@ class Resolvers::BonsSearch
   type types[BonType]
 
   class BonFilter < ::Types::BaseInputObject
-    argument :purchase_date, String, required: false
+    argument :purchase_date, GraphQL::Types::ISO8601Date, required: false
   end
 
   class BonOrderBy < ::Types::BaseEnum
     value 'createdAt_ASC'
     value 'createdAt_DESC'
+    value 'purchase_dates_ASC'
+    value 'purchase_dates_DESC'
+    value 'amount_ASC'
+    value 'amount_DESC'
   end
 
 
@@ -54,6 +58,22 @@ class Resolvers::BonsSearch
 
   def apply_order_by_with_created_at_desc(scope)
     scope.order('created_at DESC')
+  end
+
+  def apply_order_by_with_purchase_dates_asc(scope)
+    scope.order('purchase_date ASC')
+  end
+
+  def apply_order_by_with_purchase_dates_desc(scope)
+    scope.order('purchase_date DESC')
+  end
+
+  def apply_order_by_with_amount_asc(scope)
+    scope.order('amount ASC')
+  end
+
+  def apply_order_by_with_amount_desc(scope)
+    scope.order('amount DESC')
   end
 
   def fetch_results

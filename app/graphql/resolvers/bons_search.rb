@@ -10,6 +10,8 @@ class Resolvers::BonsSearch
 
   class BonFilter < ::Types::BaseInputObject
     argument :purchase_date, GraphQL::Types::ISO8601Date, required: false
+    argument :amount, Integer, required: false
+    argument :notes, String, required: false
   end
 
   class BonOrderBy < ::Types::BaseEnum
@@ -36,7 +38,10 @@ class Resolvers::BonsSearch
 
   def normalize_filters(value, branches = [])
     scope = Bon.all
-    scope = scope.where(purchase_date: value[:purchase_date])
+    scope = scope.where(purchase_date: value[:purchase_date]) if value[:purchase_date]
+    scope = scope.where(amount: value[:amount]) if value[:amount]
+    scope = scope.where(notes: value[:notes]) if value[:notes]
+
     branches << scope
 
     value[:OR].reduce(branches) { |s, v| normalize_filters(v, s) } if value[:OR].present?

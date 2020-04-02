@@ -3,7 +3,7 @@ module Mutations
     field :bon, BonType, null: false
 
     argument :id, ID, required: true
-    argument :purchaseDate, String, required: false
+    argument :purchaseDate, GraphQL::Types::ISO8601Date, required: false
     argument :notes, String, required: false
     argument :amount, Integer, required: false
 

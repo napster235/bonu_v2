@@ -1,5 +1,5 @@
 class BonType < GraphQL::Schema::Object
-  field :created_at, Types::DateTimeType, null: false
+  field :created_at, GraphQL::Types::ISO8601DateTime, null: false #was Types::DateTimeType
   field :id, ID, null: true
   field :purchaseDate, String, null: true
   field :amount, Integer, null: true

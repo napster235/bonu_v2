@@ -1,7 +1,7 @@
 module Mutations
   class CreateBon < BaseMutation
     # arguments passed to the `resolve` method
-    argument :purchaseDate, String, required: true
+    argument :purchaseDate, GraphQL::Types::ISO8601Date, required: true
     argument :notes, String, required: true
     argument :amount, Integer, required: true
     argument :userId, ID, required: true

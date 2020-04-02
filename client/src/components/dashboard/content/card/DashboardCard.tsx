@@ -1,23 +1,39 @@
 /* eslint-disable no-console */
 import React from 'react';
-import MuiCard from '@material-ui/core/Card';
+import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Tooltip from '@material-ui/core/Tooltip';
+import Modal from '@material-ui/core/Modal';
 
 import Grid from '@material-ui/core/Grid';
-
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import {
   Tag, Calendar, Info, Edit, Trash,
 } from 'react-feather';
-import { DELETE_BON, CREATE_BON } from './queries.tsx';
+import { DELETE_BON, CREATE_BON } from 'components/dashboard/queries.tsx';
+import CreateForm from 'components/dashboard/header/CreateForm.tsx';
 import ActionButton from './ActionButton.tsx';
 
 const defaultTextColor =  '#3d4977';
 const gridContainerPadding = 200;
 
+function getModalStyle() {
+  return {
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  };
+}
 
-const useStyles =  makeStyles(() =>   createStyles({
+
+const useStyles =  makeStyles((theme: Theme) =>   createStyles({
+  paper: {
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
   textColor: {
     color: defaultTextColor,
   },
@@ -55,7 +71,7 @@ const useStyles =  makeStyles(() =>   createStyles({
 }));
 
 
-const CardContentItem = ({
+const DashboardCardContentItem = ({
   classes, label, value, icon,
 }) => {
   return (
@@ -74,7 +90,7 @@ const CardContentItem = ({
 };
 
 
-interface CardProps {
+interface DashboardCardProps {
   data: {
     purchaseDate?: string,
     notes?: string,
@@ -84,25 +100,32 @@ interface CardProps {
   refetch: any | undefined
 }
 
-const Card:React.FC<CardProps> = ({ data, refetch }) => {
+const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch }) => {
   const {
     purchaseDate = '', notes = '', amount = 0, id,
   } = data;
   const classes = useStyles();
 
+  const [modalStyle] = React.useState(getModalStyle);
+  const [open, setOpen] = React.useState(false);
+
+  const toggleModal = () => {
+    setOpen(!open);
+  };
+
   return (
     <Grid item xs={6} key={`${id}`}>
-      <MuiCard className={classes.root}>
+      <Card className={classes.root}>
         <div className="d-flex w-100">
           <div className="w-90">
             <CardContent>
-              <CardContentItem
+              <DashboardCardContentItem
                 classes={classes}
                 label="Sumă"
                 value={`${amount} RON`}
                 icon={() => <Tag size={16} color={defaultTextColor} className="mr-2" />}
               />
-              <CardContentItem
+              <DashboardCardContentItem
                 classes={classes}
                 label="Dată"
                 value={purchaseDate}
@@ -111,7 +134,7 @@ const Card:React.FC<CardProps> = ({ data, refetch }) => {
 
               {notes
                 ? (
-                  <CardContentItem
+                  <DashboardCardContentItem
                     classes={classes}
                     label="Descriere"
                     value={notes}
@@ -138,9 +161,19 @@ const Card:React.FC<CardProps> = ({ data, refetch }) => {
           </div>
         </div>
 
-      </MuiCard>
+      </Card>
+      <Modal
+        open={open}
+        onClose={toggleModal}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div style={modalStyle} className={classes.paper}>
+          <CreateForm />
+        </div>
+      </Modal>
     </Grid>
   );
 };
 
-export default Card;
+export default DashboardCard;

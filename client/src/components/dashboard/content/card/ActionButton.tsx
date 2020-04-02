@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import {  Mutation } from 'react-apollo';
 
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { GET_PAGINATED_BONS } from './queries.tsx';
+import { GET_PAGINATED_BONS } from 'components/dashboard/queries.tsx';
 
 const useStyles =  makeStyles(() =>   createStyles({
   button: {

@@ -4,7 +4,7 @@ import LoadingSpinner from 'lib/components/LoadingSpinner';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Card from './Card';
+import Card from './card/DashboardCard';
 
 const useStyles = makeStyles({
   container: {
@@ -26,7 +26,7 @@ interface BonsBodyProps {
   refetch: any,
 }
 
-const BonsBody:React.FC<BonsBodyProps> =   ({
+const DashboardContent:React.FC<BonsBodyProps> =   ({
   data, loading, error, refetch,
 }) => {
   if (!data) {
@@ -59,4 +59,4 @@ const BonsBody:React.FC<BonsBodyProps> =   ({
   );
 };
 
-export default BonsBody;
+export default DashboardContent;

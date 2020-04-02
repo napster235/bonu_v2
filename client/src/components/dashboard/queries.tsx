@@ -28,7 +28,7 @@ export const DELETE_BON = gql`
 
 
 export const CREATE_BON = gql`
-  mutation CreateBon($purchaseDate: String!, $amount: Int!, $notes: String!, $userId: ID!) {
+  mutation CreateBon($purchaseDate: ISO8601Date!, $amount: Int!, $notes: String!, $userId: ID!) {
     createBon(input: { purchaseDate: $purchaseDate, amount: $amount, notes: $notes, userId: $userId } ) {
       bon {
         purchaseDate
@@ -42,7 +42,7 @@ export const CREATE_BON = gql`
 
 
 export const UPDATE_BON = gql`
-  mutation UpdateBon($purchaseDate: String, $amount: Int, $notes: String, $id: ID!) {
+  mutation UpdateBon($purchaseDate: ISO8601Date!, $amount: Int, $notes: String, $id: ID!) {
     updateBon(input: { purchaseDate: $purchaseDate, amount: $amount, notes: $notes, id: $id } ) {
       bon {
         purchaseDate

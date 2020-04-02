@@ -14,7 +14,7 @@ query($first: Int, $orderBy: BonOrderBy) {
 `;
 
 export const DELETE_BON = gql`
-  mutation($id: ID!) {
+  mutation DeleteBon($id: ID!) {
     deleteBon(input: { id: $id }) {
       bon {
         id
@@ -28,13 +28,27 @@ export const DELETE_BON = gql`
 
 
 export const CREATE_BON = gql`
-  mutation($purchaseDate: String!, $amount: Int!, $notes: String!, $userId: ID!,) {
+  mutation CreateBon($purchaseDate: String!, $amount: Int!, $notes: String!, $userId: ID!) {
     createBon(input: { purchaseDate: $purchaseDate, amount: $amount, notes: $notes, userId: $userId } ) {
       bon {
         purchaseDate
         amount
         notes
         userId
+      }
+    }
+  }
+`;
+
+
+export const UPDATE_BON = gql`
+  mutation UpdateBon($purchaseDate: String, $amount: Int, $notes: String, $id: ID!) {
+    updateBon(input: { purchaseDate: $purchaseDate, amount: $amount, notes: $notes, id: $id } ) {
+      bon {
+        purchaseDate
+        amount
+        notes
+        id
       }
     }
   }

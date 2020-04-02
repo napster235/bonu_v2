@@ -133,9 +133,11 @@
     "d3": "^5.0.0",
     "deep-equal": "^1.0.1",
     "faker": "^4.1.0",
+    "formik": "^2.1.4",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "ionicons": "2.0.1",
+    "notistack": "^0.9.9",
     "prop-types": "15.7.2",
     "ramda": "^0.26.1",
     "react": "^16.9.0",
@@ -157,7 +159,8 @@
     "seamless-immutable-mergers": "^7.0.0",
     "superagent": "^3.8.0",
     "superagent-bluebird-promise": "^4.2.0",
-    "uuid-js": "^0.7.5"
+    "uuid-js": "^0.7.5",
+    "yup": "^0.28.3"
   },
   "vendorDependencies": {}
 }

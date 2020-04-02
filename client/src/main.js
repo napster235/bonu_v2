@@ -4,11 +4,9 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { SnackbarProvider } from 'notistack';
 
-import { Provider } from 'react-redux';
 
-
-import store from 'store';
 import Main from 'components/Main';
 
 // 1
@@ -34,10 +32,23 @@ const client = new ApolloClient({
 
 // 4
 ReactDOM.render(
-  <Provider store={store}>
-    <ApolloProvider client={client}>
+
+  <ApolloProvider client={client}>
+    <SnackbarProvider
+      maxSnack={3}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      iconVariant={{
+        success: '✅',
+        error: '✖️',
+        warning: '⚠️',
+        info: 'ℹ️',
+      }}
+    >
       <Main />
-    </ApolloProvider>
-  </Provider>,
+    </SnackbarProvider>
+  </ApolloProvider>,
   document.getElementById('app-container'),
 );

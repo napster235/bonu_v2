@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Tooltip from '@material-ui/core/Tooltip';
+import { withSnackbar } from 'notistack';
 
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -90,9 +91,10 @@ interface DashboardCardProps {
     id: number,
   },
   refetch: any | undefined
+  enqueueSnackbar: (any) => void,
 }
 
-const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch }) => {
+const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch, enqueueSnackbar }) => {
   const {
     purchaseDate = '', notes = '', amount = 0, id,
   } = data;
@@ -122,10 +124,13 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch }) => {
       resetForm({});
       setStatus({ success: true });
       setShouldRefetch(true);
+      enqueueSnackbar('Bonul s-a salvat cu succes.', { variant: 'success' });
     } catch (formError) {
       setStatus({ success: false });
       setSubmitting(false);
       setErrors({ submit: formError.message });
+      enqueueSnackbar(`${formError.message}`, { variant: 'error' });
+
       setShouldRefetch(false);
     }
   };
@@ -207,4 +212,4 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch }) => {
   );
 };
 
-export default DashboardCard;
+export default withSnackbar(DashboardCard);

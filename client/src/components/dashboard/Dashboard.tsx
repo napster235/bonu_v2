@@ -4,6 +4,7 @@ import { pathOr, mergeDeepRight } from 'ramda';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
+import { withSnackbar } from 'notistack';
 import { GET_PAGINATED_BONS, CREATE_BON } from './queries.tsx';
 import BonsHeader from './header/DashboardHeader.tsx';
 import BonsBody from './content/DashboardContent.tsx';
@@ -22,10 +23,11 @@ interface DashboardProps {
   first?: number,
   skip?: number,
   orderBy?: String,
+  enqueueSnackbar?: (any) => void
 }
 
 const Dashboard:React.FC<DashboardProps> = ({
-  first, skip, orderBy = 'createdAt_DESC',
+  first, skip, orderBy = 'createdAt_DESC', enqueueSnackbar,
 }) => {
   const [sortBy, setSortBy] = useState<String>(orderBy);
   const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
@@ -58,11 +60,14 @@ const Dashboard:React.FC<DashboardProps> = ({
       });
       resetForm({});
       setStatus({ success: true });
+      enqueueSnackbar('Bonul s-a salvat cu succes.', { variant: 'success' });
       setShouldRefetch(true);
     } catch (formError) {
       setStatus({ success: false });
       setSubmitting(false);
       setErrors({ submit: formError.message });
+      enqueueSnackbar(`${formError.message}`, { variant: 'error' });
+
       setShouldRefetch(false);
     }
   };
@@ -114,4 +119,4 @@ const Dashboard:React.FC<DashboardProps> = ({
   );
 };
 
-export default Dashboard;
+export default withSnackbar(Dashboard);

@@ -137,6 +137,7 @@
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",
     "ionicons": "2.0.1",
+    "notistack": "^0.9.9",
     "prop-types": "15.7.2",
     "ramda": "^0.26.1",
     "react": "^16.9.0",

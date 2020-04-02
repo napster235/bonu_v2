@@ -2,8 +2,6 @@
 /* eslint class-methods-use-this: 0 */
 
 import { HashRouter, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import React, { Component } from 'react';
 import LoadingSpinner from 'lib/components/LoadingSpinner';
@@ -26,21 +24,4 @@ class Main extends Component {
     return this.renderApp();
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    loading: state.app.appLoading,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({
-    }, dispatch),
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Main);
+export default Main;

@@ -1,30 +1,22 @@
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Tooltip from '@material-ui/core/Tooltip';
-import Modal from '@material-ui/core/Modal';
 
 import Grid from '@material-ui/core/Grid';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import {
   Tag, Calendar, Info, Edit, Trash,
 } from 'react-feather';
-import { DELETE_BON, CREATE_BON } from 'components/dashboard/queries.tsx';
+import { DELETE_BON, UPDATE_BON } from 'components/dashboard/queries.tsx';
 import CreateForm from 'components/dashboard/header/CreateForm.tsx';
+import Modal from 'lib/components/Modal.tsx';
+import { useMutation } from '@apollo/react-hooks';
 import ActionButton from './ActionButton.tsx';
 
 const defaultTextColor =  '#3d4977';
 const gridContainerPadding = 200;
-
-function getModalStyle() {
-  return {
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-  };
-}
-
 
 const useStyles =  makeStyles((theme: Theme) =>   createStyles({
   paper: {
@@ -105,12 +97,48 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch }) => {
     purchaseDate = '', notes = '', amount = 0, id,
   } = data;
   const classes = useStyles();
+  const [updateBon] = useMutation(UPDATE_BON);
 
-  const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
 
-  const toggleModal = () => {
-    setOpen(!open);
+  const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
+
+  const onSubmit = async (values, {
+    setSubmitting, setStatus, setErrors, resetForm,
+  }) => {
+    console.log(updateBon);
+
+    try {
+      await updateBon({
+        variables: {
+          userId: 1,
+          purchaseDate: values.purchaseDate,
+          notes: values.notes,
+          amount: values.amount,
+          id,
+        },
+      });
+      resetForm({});
+      setStatus({ success: true });
+      setShouldRefetch(true);
+    } catch (formError) {
+      setStatus({ success: false });
+      setSubmitting(false);
+      setErrors({ submit: formError.message });
+      setShouldRefetch(false);
+    }
+  };
+
+
+  const handleOpenModal = () => setOpenModal(true);
+
+  const handleCloseModal = () => {
+    if (shouldRefetch) {
+      refetch();
+      setShouldRefetch(false);
+    }
+    setOpenModal(false);
   };
 
   return (
@@ -147,9 +175,7 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch }) => {
             <ActionButton
               tooltipText="Editare"
               icon={() => <Edit size={16} color={defaultTextColor}  />}
-              variables={{ id }}
-              actionQuery={CREATE_BON}
-              refetch={refetch}
+              handleClick={handleOpenModal}
             />
             <ActionButton
               tooltipText="Ștergere"
@@ -163,14 +189,19 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch }) => {
 
       </Card>
       <Modal
-        open={open}
-        onClose={toggleModal}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
+        open={openModal}
+        title="Editeaza acest bon"
+        closeButton
+        onClose={handleCloseModal}
       >
-        <div style={modalStyle} className={classes.paper}>
-          <CreateForm />
-        </div>
+        <CreateForm
+          onSubmit={onSubmit}
+          initialValues={{
+            purchaseDate,
+            notes,
+            amount,
+          }}
+        />
       </Modal>
     </Grid>
   );

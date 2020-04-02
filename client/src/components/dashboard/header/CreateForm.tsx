@@ -43,14 +43,10 @@ const CreateForm:FC<CreateFormType> = ({
       onSubmit={onSubmit}
     >
       {({
-        errors, isSubmitting, isValid, status, handleSubmit,
+        isSubmitting, isValid,
       }) => {
         return (
-          <Form
-            success={!!status && !!status.success}
-            error={!!errors.submit}
-            onSubmit={handleSubmit}
-          >
+          <Form>
 
             <Input
               label="Suma:"

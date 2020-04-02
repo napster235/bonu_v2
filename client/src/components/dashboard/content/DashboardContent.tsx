@@ -4,7 +4,7 @@ import LoadingSpinner from 'lib/components/LoadingSpinner';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Card from './card/DashboardCard';
+import DashboardCard from './card/DashboardCard';
 
 const useStyles = makeStyles({
   container: {
@@ -48,7 +48,7 @@ const DashboardContent:React.FC<BonsBodyProps> =   ({
     <Grid container spacing={1} className={`${classes.container}`}>
       {data.map((bon: { id: any; purchaseDate?: string | undefined; notes?: string | undefined; amount?: number | undefined; }) => {
         return (
-          <Card
+          <DashboardCard
             key={bon.id}
             data={bon}
             refetch={refetch}

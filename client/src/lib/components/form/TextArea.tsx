@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { useField } from 'formik';
 import classnames from 'classnames';
+import { TextareaAutosize } from '@material-ui/core';
 import { useStyles__Form } from './index';
 
 interface FormControlType {
@@ -17,7 +18,7 @@ interface TextareaType extends FormControlType {
 }
 
 export const Textarea:FC<TextareaType> = ({
-  name, id, label, rows = 3, cols = 2, ...props
+  name, id, label, rows = 5, cols = 2, ...props
 }) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input> and also replace ErrorMessage entirely.
@@ -36,8 +37,9 @@ export const Textarea:FC<TextareaType> = ({
         </label>
       )}
 
-      <textarea
-        rows={rows}
+      <TextareaAutosize
+        rowsMin={5}
+        // rowsMin={rows}
         cols={cols}
         className={classnames(classes.formControl, { [`${classes.formControlError}`]: hasError })}
         {...field}

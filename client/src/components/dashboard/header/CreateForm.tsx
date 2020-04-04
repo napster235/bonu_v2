@@ -25,7 +25,7 @@ const CreateForm:FC<CreateFormType> = ({
   initialValues = {
     amount: '',
     notes: '',
-    purchaseDate: '',
+    purchaseDate: new Date(),
   },
   onSubmit,
 }) => {
@@ -63,7 +63,7 @@ const CreateForm:FC<CreateFormType> = ({
                   label="Data:"
                   name="purchaseDate"
                   type="text"
-                  value={values.purchaseDate}
+                  value={values.purchaseDate || initialValues.purchaseDate}
                   setFieldValue={setFieldValue}
                 />
               </Grid>

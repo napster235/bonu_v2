@@ -44,9 +44,8 @@ const CreateForm:FC<CreateFormType> = ({
       onSubmit={onSubmit}
     >
       {({
-        isSubmitting, isValid, setFieldValue, values, ...rest
+        isSubmitting, isValid, setFieldValue, values,
       }) => {
-        console.log(rest);
         return (
           <Form>
             <Grid container spacing={2}>

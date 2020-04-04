@@ -133,6 +133,7 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch, enqueueSnac
 
       setShouldRefetch(false);
     }
+    setOpenModal(false);
   };
 
 

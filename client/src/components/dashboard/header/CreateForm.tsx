@@ -4,7 +4,10 @@ import * as Yup from 'yup';
 
 // MUI Components
 import Button from '@material-ui/core/Button';
-import { Input, Textarea } from './formControls';
+import Grid from '@material-ui/core/Grid';
+
+import { Input, Textarea, DatePicker } from 'lib/components/form';
+
 
 // App Components
 
@@ -32,33 +35,39 @@ const CreateForm:FC<CreateFormType> = ({
       initialValues={initialValues}
       validationSchema={Yup.object({
         amount: Yup.string()
-          .required('Required')
-          .max(15, 'Must be 15 characters or less'), // Avem limita de char ?
+          .required('Required'),
         purchaseDate: Yup.string()
-          .required('Required')
-          .max(15, 'Must be 15 characters or less'), // Avem limita de char ?
+          .required('Required'),
         notes: Yup.string(),
 
       })}
       onSubmit={onSubmit}
     >
       {({
-        isSubmitting, isValid,
+        isSubmitting, isValid, setFieldValue, values, ...rest
       }) => {
+        console.log(rest);
         return (
           <Form>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <Input
+                  label="Suma:"
+                  name="amount"
+                  type="number"
+                />
+              </Grid>
 
-            <Input
-              label="Suma:"
-              name="amount"
-              type="number"
-            />
-
-            <Input
-              label="Data:"
-              name="purchaseDate"
-              type="text"
-            />
+              <Grid item xs={6}>
+                <DatePicker
+                  label="Data:"
+                  name="purchaseDate"
+                  type="text"
+                  value={values.purchaseDate}
+                  setFieldValue={setFieldValue}
+                />
+              </Grid>
+            </Grid>
 
             <Textarea
               label="Descriere:"

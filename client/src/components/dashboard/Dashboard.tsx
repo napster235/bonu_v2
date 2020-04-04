@@ -8,7 +8,7 @@ import { withSnackbar } from 'notistack';
 import { GET_PAGINATED_BONS, CREATE_BON } from './queries.tsx';
 import BonsHeader from './header/DashboardHeader.tsx';
 import BonsBody from './content/DashboardContent.tsx';
-import BonForm from './header/CreateForm.tsx';
+import CreateForm from './header/CreateForm.tsx';
 import Modal from '../../lib/components/Modal';
 
 const defaultTextColor =  '#3d4977';
@@ -23,7 +23,7 @@ interface DashboardProps {
   first?: number,
   skip?: number,
   orderBy?: String,
-  enqueueSnackbar?: (any) => void
+  enqueueSnackbar?: (text:String, { variant: string }) => void
 }
 
 const Dashboard:React.FC<DashboardProps> = ({
@@ -112,7 +112,7 @@ const Dashboard:React.FC<DashboardProps> = ({
         closeButton
         onClose={handleCloseModal}
       >
-        <BonForm onSubmit={onSubmit} />
+        <CreateForm onSubmit={onSubmit} />
       </Modal>
     </div>
 

@@ -4,13 +4,11 @@ import Dashboard from 'components/dashboard/Dashboard.tsx';
 import {
   makeStyles,
 } from '@material-ui/core/styles';
-import { User } from 'react-feather';
 
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
   container: {
@@ -33,15 +31,10 @@ const Application: React.FC = () => {
             <Typography variant="h6" className={classes.title}>
               Lista de bonuri
             </Typography>
-            <Button
-              startIcon={<User className="p-0 m-0" color="#f9fafc" />}
-              color="inherit"
-            />
           </Toolbar>
         </AppBar>
       </div>
       <main className="w-100 h-100 main-bg d-flex">
-        {/* <SwipeableDrawer /> */}
         <div className={classes.container}>
           <Switch>
             <Route

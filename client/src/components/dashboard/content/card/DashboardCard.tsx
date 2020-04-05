@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+
 import { withSnackbar } from 'notistack';
 
 import Grid from '@material-ui/core/Grid';
@@ -14,6 +16,9 @@ import { DELETE_BON, UPDATE_BON } from 'components/dashboard/queries.tsx';
 import CreateForm from 'components/dashboard/CreateForm.tsx';
 import Modal from 'lib/components/Modal.tsx';
 import { useMutation } from '@apollo/react-hooks';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import ActionButton from './ActionButton.tsx';
 
 const defaultTextColor =  '#f9fafc';
@@ -99,17 +104,17 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch, enqueueSnac
   } = data;
   const classes = useStyles();
   const [updateBon] = useMutation(UPDATE_BON);
+  const [deleteBon] = useMutation(DELETE_BON);
 
 
   const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
 
 
   const onSubmit = async (values, {
     setSubmitting, setStatus, setErrors, resetForm,
   }) => {
-    console.log(updateBon);
-
     try {
       await updateBon({
         variables: {
@@ -144,6 +149,17 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch, enqueueSnac
       setShouldRefetch(false);
     }
     setOpenModal(false);
+  };
+
+  const handleOpenDialog = () => setOpenDialog(true);
+
+  const handleDeleteBon = () => {
+    deleteBon({ variables: { id } });
+    refetch();
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
   };
 
   return (
@@ -185,9 +201,7 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch, enqueueSnac
             <ActionButton
               tooltipText="Ștergere"
               icon={() => <Trash size={16} color={defaultTextColor}  />}
-              variables={{ id }}
-              actionQuery={DELETE_BON}
-              refetch={refetch}
+              handleClick={handleOpenDialog}
               warning
             />
           </div>
@@ -209,6 +223,38 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch, enqueueSnac
           }}
         />
       </Modal>
+      <Dialog
+        aria-labelledby="simple-dialog-title"
+        onClose={handleCloseDialog}
+        open={openDialog}
+      >
+        <DialogTitle id="simple-dialog-title">
+          {' '}
+          Esti sigur ca vrei sa stergi acest bon?
+        </DialogTitle>
+        <DialogContent dividers>
+
+          <div className="content-center justify-content-between mx-5">
+            <Button
+              variant="contained"
+              color="secondary"
+              size="small"
+              onClick={handleDeleteBon}
+            >
+              DA
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              onClick={handleCloseDialog}
+            >
+              Nu
+            </Button>
+          </div>
+        </DialogContent>
+
+      </Dialog>
     </Grid>
   );
 };

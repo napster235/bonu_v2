@@ -11,7 +11,7 @@ import {
   Tag, Calendar, Info, Edit, Trash,
 } from 'react-feather';
 import { DELETE_BON, UPDATE_BON } from 'components/dashboard/queries.tsx';
-import CreateForm from 'components/dashboard/header/CreateForm.tsx';
+import CreateForm from 'components/dashboard/CreateForm.tsx';
 import Modal from 'lib/components/Modal.tsx';
 import { useMutation } from '@apollo/react-hooks';
 import ActionButton from './ActionButton.tsx';
@@ -188,6 +188,7 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch, enqueueSnac
               variables={{ id }}
               actionQuery={DELETE_BON}
               refetch={refetch}
+              warning
             />
           </div>
         </div>

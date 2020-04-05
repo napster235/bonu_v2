@@ -11,6 +11,9 @@ const useStyles =  makeStyles((theme: Theme) =>   createStyles({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.white,
   },
+  warning: {
+    backgroundColor: theme.palette.primary.pink,
+  },
 }));
 
 interface ActionButtonProps {
@@ -20,6 +23,7 @@ interface ActionButtonProps {
   tooltipText: string,
   tooltipPosition: string | undefined,
   refetch: any | undefined,
+  warning: boolean,
   handleClick: (any) => void,
 }
 
@@ -28,12 +32,17 @@ const ActionButton:React.FC<ActionButtonProps> = ({
   tooltipText = 'Sterge',
   tooltipPosition = 'right-end',
   handleClick,
+  warning,
 }) => {
   const classes = useStyles();
 
   return (
     <Tooltip title={tooltipText} placement={tooltipPosition}>
-      <Button variant="contained" className={`h-50 border-0 content-center m-0 p-0 ${classes.button}`} onClick={handleClick}>
+      <Button
+        variant="contained"
+        className={`h-50 border-0 content-center m-0 p-0 ${classes.button} ${warning && classes.warning}`}
+        onClick={handleClick}
+      >
         {icon()}
       </Button>
     </Tooltip>

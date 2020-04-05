@@ -57,7 +57,7 @@ const DashboardContent:React.FC<BonsBodyProps> =   ({
 
 
   return (
-    <Grid container spacing={1} className={`${classes.container}`}>
+    <Grid container spacing={3} className={`${classes.container} w-100`}>
       {data.map((bon: { id: any; purchaseDate?: string | undefined; notes?: string | undefined; amount?: number | undefined; }) => {
         return (
           <DashboardCard

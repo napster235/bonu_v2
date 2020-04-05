@@ -11,6 +11,7 @@ interface FormControlType {
   name: string,
 }
 
+
 interface DatePickerProps extends FormControlType {
   type: 'text' | 'password' | 'url' | 'number',
   setFieldValue: (a: string, b:Date) => void,
@@ -32,7 +33,6 @@ export const DatePicker: FC<DatePickerProps> = ({
         disableToolbar
         variant="inline"
         format={format}
-        margin="normal"
         name={name}
         id={id}
         label={label}

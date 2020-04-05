@@ -1,42 +1,62 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 // MUI Components
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 
-
-const useStyles = makeStyles(() =>   createStyles({
-  text: {
-  },
-
-}));
-
 interface SortByProps {
-  handleSelect: (any) => void,
-  options: Array<{ id: 1, name: 'all'}>,
-  defaultValue: string,
+  sortBy?: String,
+  handleSortBy: () => void,
 }
 
 
-const SortBy: React.FC<SortByProps> = ({ options, handleSelect, defaultValue }) => {
-  const [selection, setSelection] = React.useState([defaultValue] as any);
-
-  const classes = useStyles();
+const SortBy: FC<SortByProps> = ({
+  handleSortBy,
+  sortBy,
+}) => {
+  const [selection, setSelection] = React.useState([sortBy] as any);
 
   const handleChange = (event: React.ChangeEvent<{ name?: string | undefined; value: Array<string> | string[] }>) => {
     const { value }  = event.target;
     setSelection(value);
-    handleSelect(value);
+    handleSortBy(value);
   };
+
+  const options = [
+    {
+      id: 'createdAt_DESC',
+      name: 'Descrescător după data creării',
+    },
+    {
+      id: 'createdAt_ASC',
+      name: 'Crescător după data creării',
+    },
+    {
+      id: 'purchase_dates_ASC',
+      name: 'Crescător după data achizitionarii',
+    },
+    {
+      id: 'purchase_dates_DESC',
+      name: 'Descrescător după data achizitionarii',
+    },
+    {
+      id: 'amount_ASC',
+      name: 'Crescător după sumă',
+    },
+    {
+      id: 'amount_DESC',
+      name: 'Descrescător după sumă',
+    },
+  ];
 
 
   return (
-    <div className="d-flex align-items-center">
-      <div className={`${classes.text} mr-2`}>
-        Sortează după
-      </div>
+    <div>
+      <Typography id="range-slider" gutterBottom>
+        Ordonează după:
+      </Typography>
       <FormControl style={{ minWidth: 420 }}>
         <Select
           MenuProps={{
@@ -57,7 +77,7 @@ const SortBy: React.FC<SortByProps> = ({ options, handleSelect, defaultValue }) 
           {options.map(d => {
             return (
               <MenuItem disableGutters className="multi-select-menu-item" key={d.id} value={d.id}>
-                <div className={`${classes.text} w-80 ml-3`}>
+                <div className="w-80 ml-3">
                   {d.name}
                 </div>
               </MenuItem>
@@ -66,6 +86,7 @@ const SortBy: React.FC<SortByProps> = ({ options, handleSelect, defaultValue }) 
         </Select>
       </FormControl>
     </div>
+
 
   );
 };

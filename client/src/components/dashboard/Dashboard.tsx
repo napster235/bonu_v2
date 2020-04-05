@@ -5,11 +5,13 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { withSnackbar } from 'notistack';
 import Button from '@material-ui/core/Button';
-import { PlusCircle } from 'react-feather';
+import SortBy from 'lib/components/SortBy';
+import RangeSlider from 'lib/components/form/RangeSlider.tsx';
+import RangePicker from 'lib/components/form/RangePicker.tsx';
+
 import { GET_PAGINATED_BONS, CREATE_BON } from './queries.tsx';
-import DashboardHeader from './header/DashboardHeader.tsx';
 import DashboardContent from './content/DashboardContent.tsx';
-import CreateForm from './header/CreateForm.tsx';
+import CreateForm from './CreateForm.tsx';
 import Modal from '../../lib/components/Modal';
 
 const useStyles = makeStyles(() => createStyles({
@@ -88,32 +90,28 @@ const Dashboard:React.FC<DashboardProps> = ({
 
 
   return (
-    <div className="container mt-5">
-      <div className="w-100 d-flex">
-        <h3 className="w-50 m-0 p-0">
-          Listă bonuri
-        </h3>
-        <div className="w-50 text-right">
-          <Button
-            onClick={handleOpenModal}
-            variant="text"
-            color="secondary"
-            className={`h-100 content-center ${classes.button}`}
-            startIcon={<PlusCircle className="p-0 m-0" color="#3a6fcf" />}
-            size="large"
-          >
-            <div className="p-2 font-weight-bold">
-              Adaugă bon
-            </div>
-          </Button>
+    <div className="container w-100 mt-5">
+      <div className="w-100 my-5 content-center justify-content-between">
+        <div className="w-60 d-flex">
+          <RangeSlider from={0} to={7000} handleChange={() => {}} />
+          <RangePicker />
+          <SortBy
+            handleSortBy={handleSortBy}
+            sortBy={sortBy}
+          />
         </div>
+        <Button
+          onClick={handleOpenModal}
+          variant="contained"
+          color="secondary"
+          size="small"
+          className={`h-100 content-center ${classes.button}`}
+        >
+          Adaugă bon
+        </Button>
+
 
       </div>
-      <DashboardHeader
-        handleClick={handleOpenModal}
-        handleSortBy={handleSortBy}
-        orderBy={sortBy}
-      />
       <DashboardContent
         data={pathOr([], ['bons'], data)}
         loading={loading || networkStatus === 4}

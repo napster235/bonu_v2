@@ -25,5 +25,23 @@ button {
 
 input,
 textarea {
-  color: #424242 !important;
+  color: white !important;
+}
+
+label,
+.MuiInputLabel-shrink {
+  font-size: 0.875rem !important;
+  line-height: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+  color: white !important;
+  transform: translate(0, 0) scale(1) !important;
+}
+
+label + .MuiInput-formControl {
+  margin-top: 2.15rem !important;
+  height: 2.5rem;
+  padding: 4px 8px;
+  font-size: 1rem;
+  color: white;
+  border: 1px solid rgba(92, 136, 154, 0.2);
 }

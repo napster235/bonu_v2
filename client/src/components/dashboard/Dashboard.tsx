@@ -6,8 +6,8 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { withSnackbar } from 'notistack';
 import Button from '@material-ui/core/Button';
 import SortBy from 'lib/components/SortBy';
-import RangeSlider from 'lib/components/form/RangeSlider.tsx';
-import RangePicker from 'lib/components/form/RangePicker.tsx';
+// import RangeSlider from 'lib/components/form/RangeSlider.tsx';
+// import RangePicker from 'lib/components/form/RangePicker.tsx';
 
 import { GET_PAGINATED_BONS, CREATE_BON } from './queries.tsx';
 import DashboardContent from './content/DashboardContent.tsx';
@@ -93,8 +93,8 @@ const Dashboard:React.FC<DashboardProps> = ({
     <div className="container w-100 mt-5">
       <div className="w-100 my-5 content-center justify-content-between">
         <div className="w-60 d-flex">
-          <RangeSlider from={0} to={7000} handleChange={() => {}} />
-          <RangePicker />
+          {/* <RangeSlider from={0} to={7000} handleChange={() => {}} /> */}
+          {/* <RangePicker /> */}
           <SortBy
             handleSortBy={handleSortBy}
             sortBy={sortBy}

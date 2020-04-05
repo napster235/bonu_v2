@@ -32,7 +32,6 @@ const client = new ApolloClient({
 
 // 4
 ReactDOM.render(
-
   <ApolloProvider client={client}>
     <SnackbarProvider
       maxSnack={3}

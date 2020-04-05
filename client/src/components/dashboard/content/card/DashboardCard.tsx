@@ -16,14 +16,13 @@ import Modal from 'lib/components/Modal.tsx';
 import { useMutation } from '@apollo/react-hooks';
 import ActionButton from './ActionButton.tsx';
 
-const defaultTextColor =  '#3d4977';
+const defaultTextColor =  '#f9fafc';
 const gridContainerPadding = 200;
 
 const useStyles =  makeStyles((theme: Theme) =>   createStyles({
   paper: {
     position: 'absolute',
     width: 400,
-    backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },

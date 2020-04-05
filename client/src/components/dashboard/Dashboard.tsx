@@ -2,22 +2,21 @@
 import React, { useState } from 'react';
 import { pathOr, mergeDeepRight } from 'ramda';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { withSnackbar } from 'notistack';
+import Button from '@material-ui/core/Button';
+import { PlusCircle } from 'react-feather';
 import { GET_PAGINATED_BONS, CREATE_BON } from './queries.tsx';
-import BonsHeader from './header/DashboardHeader.tsx';
-import BonsBody from './content/DashboardContent.tsx';
+import DashboardHeader from './header/DashboardHeader.tsx';
+import DashboardContent from './content/DashboardContent.tsx';
 import CreateForm from './header/CreateForm.tsx';
 import Modal from '../../lib/components/Modal';
 
-const defaultTextColor =  '#3d4977';
-
-const useStyles = makeStyles({
-  textColor: {
-    color: defaultTextColor,
+const useStyles = makeStyles(() => createStyles({
+  button: {
+    fontSize: '0.87rem',
   },
-});
+}));
 
 interface DashboardProps {
   first?: number,
@@ -90,17 +89,32 @@ const Dashboard:React.FC<DashboardProps> = ({
 
   return (
     <div className="container mt-5">
-      <div className="w-100 d-flex flex-column">
-        <Box component="h4" my={3} className={`${classes.textColor} content-center`}>
+      <div className="w-100 d-flex">
+        <h3 className="w-50 m-0 p-0">
           Listă bonuri
-        </Box>
+        </h3>
+        <div className="w-50 text-right">
+          <Button
+            onClick={handleOpenModal}
+            variant="text"
+            color="secondary"
+            className={`h-100 content-center ${classes.button}`}
+            startIcon={<PlusCircle className="p-0 m-0" color="#3a6fcf" />}
+            size="large"
+          >
+            <div className="p-2 font-weight-bold">
+              Adaugă bon
+            </div>
+          </Button>
+        </div>
+
       </div>
-      <BonsHeader
+      <DashboardHeader
         handleClick={handleOpenModal}
         handleSortBy={handleSortBy}
         orderBy={sortBy}
       />
-      <BonsBody
+      <DashboardContent
         data={pathOr([], ['bons'], data)}
         loading={loading || networkStatus === 4}
         error={error}

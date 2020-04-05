@@ -6,28 +6,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { indexOf } from 'ramda';
-
 
 const useStyles = makeStyles(() =>   createStyles({
   text: {
-    letterSpacing: '0.2em',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    fontSize: 12,
-    opacity: 0.5,
-    lineHeight: '1.25rem',
   },
-  fullOpacity: {
-    opacity: 1,
-  },
-  menuList: {
-    padding: 0,
-    margin: 0,
-  },
-  selectWidth: {
-    width: 200,
-  },
+
 }));
 
 interface SortByProps {
@@ -52,9 +35,9 @@ const SortBy: React.FC<SortByProps> = ({ options, handleSelect, defaultValue }) 
   return (
     <div className="d-flex align-items-center">
       <div className={`${classes.text} mr-2`}>
-        Sortează după dată
+        Sortează după
       </div>
-      <FormControl>
+      <FormControl style={{ minWidth: 420 }}>
         <Select
           MenuProps={{
             anchorOrigin: {
@@ -66,11 +49,9 @@ const SortBy: React.FC<SortByProps> = ({ options, handleSelect, defaultValue }) 
               horizontal: 'left',
             },
             getContentAnchorEl: null,
-            className: classes.menuList,
           }}
           value={selection}
           onChange={handleChange}
-          className={`${classes.text} ${classes.fullOpacity} ${classes.selectWidth}`}
           displayEmpty
         >
           {options.map(d => {

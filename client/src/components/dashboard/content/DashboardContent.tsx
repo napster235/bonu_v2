@@ -11,6 +11,9 @@ const useStyles = makeStyles({
     maxHeight: '70vh',
     overflowY: 'auto',
   },
+  loadingContainer: {
+    height: '70vh',
+  },
 });
 
 
@@ -29,14 +32,23 @@ interface BonsBodyProps {
 const DashboardContent:React.FC<BonsBodyProps> =   ({
   data, loading, error, refetch,
 }) => {
-  if (!data) {
-    return <LoadingSpinner />;
-  }
   const classes = useStyles();
+
+  if (!data) {
+    return (
+      <div className={`${classes.loadingContainer} content-center flex-column`}>
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
 
   if (loading || !data.length) {
-    return <LoadingSpinner />;
+    return (
+      <div className={`${classes.loadingContainer} content-center flex-column`}>
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   if (error) {

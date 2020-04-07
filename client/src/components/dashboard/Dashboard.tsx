@@ -2,28 +2,29 @@
 import React, { useState } from 'react';
 import { pathOr, mergeDeepRight } from 'ramda';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { withSnackbar } from 'notistack';
+import Button from '@material-ui/core/Button';
+import SortBy from 'lib/components/SortBy';
+// import RangeSlider from 'lib/components/form/RangeSlider.tsx';
+// import RangePicker from 'lib/components/form/RangePicker.tsx';
+
 import { GET_PAGINATED_BONS, CREATE_BON } from './queries.tsx';
-import BonsHeader from './header/DashboardHeader.tsx';
-import BonsBody from './content/DashboardContent.tsx';
-import BonForm from './header/CreateForm.tsx';
+import DashboardContent from './content/DashboardContent.tsx';
+import CreateForm from './CreateForm.tsx';
 import Modal from '../../lib/components/Modal';
 
-const defaultTextColor =  '#3d4977';
-
-const useStyles = makeStyles({
-  textColor: {
-    color: defaultTextColor,
+const useStyles = makeStyles(() => createStyles({
+  button: {
+    fontSize: '0.87rem',
   },
-});
+}));
 
 interface DashboardProps {
   first?: number,
   skip?: number,
   orderBy?: String,
-  enqueueSnackbar?: (any) => void
+  enqueueSnackbar?: (text:String, { variant: string }) => void
 }
 
 const Dashboard:React.FC<DashboardProps> = ({
@@ -89,18 +90,29 @@ const Dashboard:React.FC<DashboardProps> = ({
 
 
   return (
-    <div className="container mt-5">
-      <div className="w-100 d-flex flex-column">
-        <Box component="h4" my={3} className={`${classes.textColor} content-center`}>
-          Listă bonuri
-        </Box>
+    <div className="container w-100 mt-5">
+      <div className="w-100 my-5 content-center justify-content-between">
+        <div className="w-60 d-flex">
+          {/* <RangeSlider from={0} to={7000} handleChange={() => {}} /> */}
+          {/* <RangePicker /> */}
+          <SortBy
+            handleSortBy={handleSortBy}
+            sortBy={sortBy}
+          />
+        </div>
+        <Button
+          onClick={handleOpenModal}
+          variant="contained"
+          color="secondary"
+          size="small"
+          className={`h-100 content-center ${classes.button}`}
+        >
+          Adaugă bon
+        </Button>
+
+
       </div>
-      <BonsHeader
-        handleClick={handleOpenModal}
-        handleSortBy={handleSortBy}
-        orderBy={sortBy}
-      />
-      <BonsBody
+      <DashboardContent
         data={pathOr([], ['bons'], data)}
         loading={loading || networkStatus === 4}
         error={error}
@@ -112,7 +124,7 @@ const Dashboard:React.FC<DashboardProps> = ({
         closeButton
         onClose={handleCloseModal}
       >
-        <BonForm onSubmit={onSubmit} />
+        <CreateForm onSubmit={onSubmit} />
       </Modal>
     </div>
 

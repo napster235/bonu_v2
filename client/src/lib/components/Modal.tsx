@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 480,
-    backgroundColor: 'white',
+    backgroundColor: '#424242',
     borderRadius: '0.25rem',
     boxShadow: theme.shadows[5],
   },
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     margin: 0,
   },
   modalCloseButton: {
-    color: '#222843',
+    color: '#f9fafc',
     minWidth: 'auto',
     fontSize: '0.75rem',
     fontWeight: 'bold',

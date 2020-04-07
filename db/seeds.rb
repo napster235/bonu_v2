@@ -27,4 +27,4 @@ lista_bonuri.each do |purchase_date, amount, notes|
   Bon.create(purchase_date: purchase_date, amount: amount, notes: notes, user_id:1)
 end
 
-puts 'asdasdasdasdas'
+puts 'Seed complete'

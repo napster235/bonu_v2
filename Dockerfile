@@ -35,13 +35,14 @@ COPY Gemfile /bonu_v2/Gemfile
 COPY Gemfile.lock /bonu_v2/Gemfile.lock
 
 RUN bundle config build.nokogiri --use-system-libraries
-RUN bundle check || bundle install
+RUN bundle install
+# RUN bundle exec rake db:setup
 
-COPY /client/package.json /client/yarn.lock ./
-RUN yarn install --check-files
-RUN cd bonu_v2/client && yarn install
-RUN cd bonu_v2/client && yarn run build
-# COPY . /bonu_v2
+# COPY /client/package.json /client/yarn.lock ./
+# RUN yarn install --check-files
+# RUN cd bonu_v2/client && yarn install
+# RUN cd bonu_v2/client && yarn run build
+COPY . /bonu_v2
 
-RUN chmod +x /entrypoint.sh
+# RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]

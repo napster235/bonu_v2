@@ -10,8 +10,8 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_mailbox/engine"
 require "action_text/engine"
-require "action_view/railtie"
 require "action_cable/engine"
+require "action_view/railtie"
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
@@ -21,6 +21,13 @@ Bundler.require(*Rails.groups)
 
 module BonuV2
   class Application < Rails::Application
+    config.generators do |g|
+      g.helper false
+      g.helper_specs false
+      g.assets false
+      g.stylesheets false
+      g.view_specs false
+    end
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
@@ -40,10 +47,19 @@ module BonuV2
         resource '*', :headers => :any, :methods => [:get, :post, :options]
       end
     end
+
     #autoloads lib folder during production
     config.eager_load_paths << Rails.root.join('lib')
 
     #autoloads lib folder during development
     config.autoload_paths << Rails.root.join('lib')
+
+    # Code is not reloaded between requests.
+    config.cache_classes = true
+
+    # Full error reports are disabled and caching is turned on.
+    config.consider_all_requests_local       = false
+    config.action_controller.perform_caching = true
+
   end
 end

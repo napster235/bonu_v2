@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: 'welcome#index'
+
   post "/graphql", to: "graphql#execute"
   post 'register', to: 'api/v1/users#register'
   post 'auth/login', to: 'api/v1/users#login'
@@ -10,5 +12,5 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'api/v1/bons#index'
+  # root to: 'api/v1/bons#index'
 end

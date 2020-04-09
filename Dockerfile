@@ -44,4 +44,4 @@ RUN cd bonu_v2/client && yarn build
 COPY . /bonu_v2
 
 # RUN chmod +x /docker-entrypoint.sh
-ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"]
+ENTRYPOINT ["./entrypoints/docker-entrypoint.sh"] 😡😡😡

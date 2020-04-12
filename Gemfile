@@ -14,7 +14,7 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'jwt'
 gem 'simple_command'
 
-gem 'graphql'
+gem 'graphql', '1.10.6'
 gem 'graphql-query-resolver'
 gem 'search_object'
 gem 'search_object_graphql'

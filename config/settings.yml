@@ -1,5 +1,0 @@
-# frontend specific variables for prod builds. If you need to set dev variables see client/environment.js
-ui_config:
-  base_url: "<%= ENV.fetch('UI_BASE_URL', '') %>"
-  debug: <%= ENV.fetch('UI_DEBUG', false) %>
-  client_env: "<%= Rails.env %>"

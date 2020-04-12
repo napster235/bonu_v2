@@ -35,7 +35,7 @@ const plugins = [
     title: 'React KIT',
     template: 'index.ejs',
     templateParameters: {
-      head: '<%= javascript_tag(" ENV = #{Settings.ui_config.to_json}; ") %>', // injects in head html
+      head: '<%= javascript_tag(` ENV = {baseUrl: "localhost:3000", client_env: "production"} `) %>', // injects in head html
     },
   }),
 ];

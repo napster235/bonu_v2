@@ -19,7 +19,6 @@ gem 'graphql-query-resolver'
 gem 'search_object'
 gem 'search_object_graphql'
 
-gem 'config', '~> 2.2.1'
 
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

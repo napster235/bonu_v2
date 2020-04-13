@@ -1,7 +1,6 @@
 class BonuV2Schema < GraphQL::Schema
   mutation(Types::MutationType)
   query Types::QueryType
-  mutation Types::MutationType
 
   def self.resolve_type(_type, object, _ctx)
     type_class = "::Types::#{object.class}Type".safe_constantize

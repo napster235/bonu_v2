@@ -16,12 +16,6 @@ class Api::V1::UsersController < ApplicationController
     authenticate params[:email], params[:password]
   end
 
-  def test
-    render json: {
-        message: 'You have passed authentication and authorization test'
-    }
-  end
-
   private
 
   def user_params

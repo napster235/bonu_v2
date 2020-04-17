@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
-User.create!(name: 'test', email: 'test@tewst.com', password: '123456')
+User.create!(name: Faker::Movies::HarryPotter.character, email: Faker::Internet.email, password: Faker::String.random(length: 6))
 
 10.times do
   Bon.create!(purchase_date: Faker::Date.between(from: 100.days.ago, to: Date.today), amount: Faker::Number.within(range: 1..3000), notes: Faker::Games::Pokemon.name, user_id: 1)

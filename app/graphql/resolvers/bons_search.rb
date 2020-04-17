@@ -28,7 +28,7 @@ class Resolvers::BonsSearch
   option :first, type: Integer, with: :apply_first
   option :skip, type: Integer, with: :apply_skip
 
-  option :order_by, type: BonOrderBy, default: 'createdAt_DESC'
+  option :order_by, type: BonOrderBy, default: 'createdAt_DESC', with: :apply_order
 
 
   def apply_filter(scope, value)
@@ -57,30 +57,19 @@ class Resolvers::BonsSearch
     scope.offset(value)
   end
 
-  def apply_order_by_with_created_at_asc(scope)
-    scope.order('created_at ASC')
+  def apply_order(scope, value)
+    orders = {
+      'createdAt_ASC': 'created_at ASC',
+      'createdAt_DESC': 'created_at DESC',
+      'purchaseDate_ASC': 'purchase_date ASC',
+      'purchaseDate_DESC': 'purchase_date DESC',
+      'amount_ASC': 'amount ASC',
+      'amount_DESC': 'amount DESC',
+    }
+    scope.order(orders[value.to_sym]) 
   end
 
-  def apply_order_by_with_created_at_desc(scope)
-    scope.order('created_at DESC')
-  end
-
-  def apply_order_by_with_purchase_dates_asc(scope)
-    scope.order('purchase_date ASC')
-  end
-
-  def apply_order_by_with_purchase_dates_desc(scope)
-    scope.order('purchase_date DESC')
-  end
-
-  def apply_order_by_with_amount_asc(scope)
-    scope.order('amount ASC')
-  end
-
-  def apply_order_by_with_amount_desc(scope)
-    scope.order('amount DESC')
-  end
-
+ 
   def fetch_results
     # NOTE: Don't run QueryResolver during tests
     return super unless context.present?

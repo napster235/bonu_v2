@@ -41,6 +41,8 @@ const useStyles =  makeStyles((theme: Theme) =>   createStyles({
   root: {
     minWidth: 275,
     margin: '0 4rem',
+    background: '#343a40',
+
   },
   title: {
     fontSize: 14,
@@ -154,8 +156,13 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch, enqueueSnac
   const handleOpenDialog = () => setOpenDialog(true);
 
   const handleDeleteBon = () => {
-    deleteBon({ variables: { id } });
-    refetch();
+    deleteBon({ variables: { id } })
+      .then(() => {
+        enqueueSnackbar('Bonul s-a sters cu succes', { variant: 'success' });
+        refetch();
+      }).catch(() => {
+        enqueueSnackbar('A aparut o eroare', { variant: 'error' });
+      });
   };
 
   const handleCloseDialog = () => {

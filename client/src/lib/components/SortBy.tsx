@@ -8,9 +8,36 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 interface SortByProps {
   sortBy?: String,
-  handleSortBy: () => void,
+  handleSortBy: (props: any) => void,
 }
 
+
+const OPTIONS = [
+  {
+    id: 'createdAt_DESC',
+    name: 'Descrescător după data creării',
+  },
+  {
+    id: 'createdAt_ASC',
+    name: 'Crescător după data creării',
+  },
+  {
+    id: 'purchase_dates_ASC',
+    name: 'Crescător după data achizitionarii',
+  },
+  {
+    id: 'purchase_dates_DESC',
+    name: 'Descrescător după data achizitionarii',
+  },
+  {
+    id: 'amount_ASC',
+    name: 'Crescător după sumă',
+  },
+  {
+    id: 'amount_DESC',
+    name: 'Descrescător după sumă',
+  },
+];
 
 const SortBy: FC<SortByProps> = ({
   handleSortBy,
@@ -18,39 +45,16 @@ const SortBy: FC<SortByProps> = ({
 }) => {
   const [selection, setSelection] = React.useState([sortBy] as any);
 
-  const handleChange = (event: React.ChangeEvent<{ name?: string | undefined; value: Array<string> | string[] }>) => {
+  const handleChange = (event: React.ChangeEvent<
+    {
+      name?: string | undefined;
+      value: Array<string> | string[]
+    }
+  >) => {
     const { value }  = event.target;
     setSelection(value);
     handleSortBy(value);
   };
-
-  const options = [
-    {
-      id: 'createdAt_DESC',
-      name: 'Descrescător după data creării',
-    },
-    {
-      id: 'createdAt_ASC',
-      name: 'Crescător după data creării',
-    },
-    {
-      id: 'purchase_dates_ASC',
-      name: 'Crescător după data achizitionarii',
-    },
-    {
-      id: 'purchase_dates_DESC',
-      name: 'Descrescător după data achizitionarii',
-    },
-    {
-      id: 'amount_ASC',
-      name: 'Crescător după sumă',
-    },
-    {
-      id: 'amount_DESC',
-      name: 'Descrescător după sumă',
-    },
-  ];
-
 
   return (
     <div>
@@ -74,7 +78,7 @@ const SortBy: FC<SortByProps> = ({
           onChange={handleChange}
           displayEmpty
         >
-          {options.map(d => {
+          {OPTIONS.map(d => {
             return (
               <MenuItem disableGutters className="multi-select-menu-item" key={d.id} value={d.id}>
                 <div className="w-80 ml-3">

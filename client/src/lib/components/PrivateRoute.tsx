@@ -1,24 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
 
-class PrivateRoute extends React.Component {
-  render() {
-    const { allow, redirectTo } = this.props;
-
-    return (
-      allow
-        ? <Route {...this.props} />
-        : (
-          <Redirect
-            to={{
-              pathname: redirectTo,
-            }}
-          />
-        )
-    );
-  }
-}
+const PrivateRoute:FC = (props) => {
+  const { allow, redirectTo } = props;
+  return (
+    allow
+      ? <Route {...props} />
+      : (
+        <Redirect
+          to={{
+            pathname: redirectTo,
+          }}
+        />
+      )
+  );
+};
 
 PrivateRoute.propTypes = {
   /* Specifies if user is authenticated. If user is not authenticated, component redirects to 'redirectTo'. */

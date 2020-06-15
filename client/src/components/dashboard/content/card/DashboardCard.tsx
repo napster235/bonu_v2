@@ -188,15 +188,12 @@ const DashboardCard:React.FC<DashboardCardProps> = ({ data, refetch, enqueueSnac
                 icon={() => <Calendar size={16} color={defaultTextColor} className="mr-2" />}
               />
 
-              {notes
-                ? (
-                  <DashboardCardContentItem
-                    classes={classes}
-                    label="Descriere"
-                    value={notes}
-                    icon={() => <Info size={16} color={defaultTextColor} className="mr-2" />}
-                  />
-                ) : null}
+              <DashboardCardContentItem
+                classes={classes}
+                label="Descriere"
+                value={notes || '" "'}
+                icon={() => <Info size={16} color={defaultTextColor} className="mr-2" />}
+              />
             </CardContent>
           </div>
           <div className={classes.cardControllers}>

@@ -4,6 +4,7 @@ import LoadingSpinner from 'lib/components/LoadingSpinner';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { Typography } from '@material-ui/core';
 import DashboardCard from './card/DashboardCard';
 
 const useStyles = makeStyles({
@@ -34,7 +35,7 @@ const DashboardContent:React.FC<BonsBodyProps> =   ({
 }) => {
   const classes = useStyles();
 
-  if (!data) {
+  if (loading && !data.length) {
     return (
       <div className={`${classes.loadingContainer} content-center flex-column`}>
         <LoadingSpinner />
@@ -42,11 +43,10 @@ const DashboardContent:React.FC<BonsBodyProps> =   ({
     );
   }
 
-
-  if (loading || !data.length) {
+  if (!data.length) {
     return (
       <div className={`${classes.loadingContainer} content-center flex-column`}>
-        <LoadingSpinner />
+        <Typography>Nu exista niciun bon</Typography>
       </div>
     );
   }

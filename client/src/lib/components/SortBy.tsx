@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { FC } from 'react';
 
 // MUI Components
 import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 
 interface SortByProps {
@@ -57,39 +58,40 @@ const SortBy: FC<SortByProps> = ({
   };
 
   return (
-    <div>
-      <Typography id="range-slider" gutterBottom>
+    <FormControl style={{ minWidth: 420 }} className="mb-2 mt-3">
+      <InputLabel>
         Ordonează după:
-      </Typography>
-      <FormControl style={{ minWidth: 420 }}>
-        <Select
-          MenuProps={{
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'left',
-            },
-            transformOrigin: {
-              vertical: 'top',
-              horizontal: 'left',
-            },
-            getContentAnchorEl: null,
-          }}
-          value={selection}
-          onChange={handleChange}
-          displayEmpty
-        >
-          {OPTIONS.map(d => {
-            return (
-              <MenuItem disableGutters className="multi-select-menu-item" key={d.id} value={d.id}>
-                <div className="w-80 ml-3">
-                  {d.name}
-                </div>
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
-    </div>
+      </InputLabel>
+
+      <Select
+        MenuProps={{
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'left',
+          },
+          transformOrigin: {
+            vertical: 'top',
+            horizontal: 'left',
+          },
+          getContentAnchorEl: null,
+        }}
+        value={selection}
+        onChange={handleChange}
+        displayEmpty
+        label="Standard"
+      >
+        {OPTIONS.map(d => {
+          return (
+            <MenuItem disableGutters className="multi-select-menu-item" key={d.id} value={d.id}>
+              <div className="w-80 ml-3">
+                {d.name}
+              </div>
+            </MenuItem>
+          );
+        })}
+      </Select>
+
+    </FormControl>
 
 
   );

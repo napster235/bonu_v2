@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import { pathOr, mergeDeepRight } from 'ramda';
+import { pathOr, mergeDeepRight, omit } from 'ramda';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { withSnackbar } from 'notistack';
@@ -8,6 +8,13 @@ import Button from '@material-ui/core/Button';
 import SortBy from 'lib/components/SortBy';
 // import RangeSlider from 'lib/components/form/RangeSlider.tsx';
 // import RangePicker from 'lib/components/form/RangePicker.tsx';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
 
 import { GET_PAGINATED_BONS, CREATE_BON } from './queries.tsx';
 import DashboardContent from './content/DashboardContent.tsx';
@@ -33,10 +40,14 @@ const Dashboard:React.FC<DashboardProps> = ({
   const [sortBy, setSortBy] = useState<String>(orderBy);
   const [shouldRefetch, setShouldRefetch] = useState<boolean>(false);
 
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(null);
+
   const {
     loading, data, error, refetch, networkStatus, variables,
   } = useQuery(GET_PAGINATED_BONS, {
-    variables: { first, skip, orderBy: sortBy },
+    variables: {
+      first, skip, orderBy: sortBy, filter: undefined,
+    },
     notifyOnNetworkStatusChange: true,
   });
 
@@ -46,6 +57,10 @@ const Dashboard:React.FC<DashboardProps> = ({
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [saveBon] = useMutation(CREATE_BON);
 
+  const handleDateChange = (date: Date | null) => {
+    refetch({ filter: { purchaseDate: date } });
+    setSelectedDate(date);
+  };
 
   const onSubmit = async (values, {
     setSubmitting, setStatus, setErrors, resetForm,
@@ -85,20 +100,34 @@ const Dashboard:React.FC<DashboardProps> = ({
 
   const handleSortBy = value => {
     setSortBy(value);
-    refetch(mergeDeepRight(variables, { orderBy: value }));
+    setSelectedDate(null);
+    refetch(mergeDeepRight(variables, { orderBy: value, filter: undefined }));
   };
-
 
   return (
     <div className="container w-100 mt-5">
       <div className="w-100 my-5 content-center justify-content-between">
-        <div className="w-60 d-flex">
-          {/* <RangeSlider from={0} to={7000} handleChange={() => {}} /> */}
-          {/* <RangePicker /> */}
+        <div className="w-60 d-flex align-items-center justify-content-between">
           <SortBy
             handleSortBy={handleSortBy}
             sortBy={sortBy}
           />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              margin="normal"
+              id="date-picker-dialog"
+              label="Alege o dată:"
+              format="dd/MM/yyyy"
+              value={selectedDate}
+              onAccept={handleDateChange}
+              onClose={() => {}}
+              onChange={() => {}}
+              allowKeyboardControl={false}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+            />
+          </MuiPickersUtilsProvider>
         </div>
         <Button
           onClick={handleOpenModal}
